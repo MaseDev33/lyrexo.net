@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a10">
+  <meta name="description" content="The personal website of lyrexo. Software, homelab projects, and experiments.">
+  <meta property="og:title" content="lyrexo">
+  <meta property="og:description" content="Software, homelab projects, and other experiments.">
+  <meta property="og:type" content="website">
+  <title>lyrexo</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a10;
+      --surface: rgba(255,255,255,.055);
+      --surface-hover: rgba(255,255,255,.09);
+      --text: #f5f3fa;
+      --muted: #b8b5c5;
+      --border: rgba(255,255,255,.13);
+      --accent: #aaa2ff;
+      --link: #c5bdff;
+      --shadow: 0 16px 50px rgba(0,0,0,.08);
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #faf9fd;
+      --surface: rgba(255,255,255,.82);
+      --surface-hover: #fff;
+      --text: #171522;
+      --muted: #514e60;
+      --border: rgba(35,28,60,.17);
+      --accent: #5949b5;
+      --link: #5140ae;
+      --shadow: 0 16px 50px rgba(40,30,80,.07);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .ambient {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 62% 43% at 12% 0%, rgba(70,91,255,.24), transparent 76%),
+        radial-gradient(ellipse 56% 43% at 92% 5%, rgba(222,75,181,.19), transparent 76%),
+        linear-gradient(180deg, transparent 5%, var(--bg) 78%);
+      transition: background .25s ease;
+    }
+    :root[data-theme="light"] .ambient {
+      background:
+        radial-gradient(ellipse 62% 43% at 12% 0%, rgba(93,121,255,.17), transparent 76%),
+        radial-gradient(ellipse 56% 43% at 92% 5%, rgba(231,116,191,.16), transparent 76%),
+        linear-gradient(180deg, transparent 5%, var(--bg) 78%);
+    }
+
+    .site-shell {
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px 0 82px;
+    }
+    .brand {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 780;
+      letter-spacing: -.8px;
+    }
+    .brand span { color: var(--accent); }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav a {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .nav a:hover { color: var(--text); text-decoration: none; }
+    .theme-toggle {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 9px 13px;
+      color: var(--text);
+      background: var(--surface);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .theme-toggle:hover { background: var(--surface-hover); }
+
+    .hero {
+      max-width: 700px;
+      padding-bottom: 76px;
+    }
+    .eyebrow {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 20px;
+      color: var(--text);
+      font-size: clamp(46px, 8vw, 76px);
+      font-weight: 780;
+      letter-spacing: -4.5px;
+      line-height: 1.03;
+    }
+    .gradient-text {
+      background: linear-gradient(105deg, #8297ff 5%, #c18cff 52%, #ef91c9 95%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    :root[data-theme="light"] .gradient-text {
+      background: linear-gradient(105deg, #344fbd 5%, #7543aa 52%, #a83279 95%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .intro {
+      max-width: 550px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    h2 {
+      margin: 0;
+      color: var(--text);
+      font-size: 18px;
+      letter-spacing: -.45px;
+    }
+    .small-note {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 550;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+    .project {
+      min-height: 142px;
+      padding: 20px 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      transition: background .2s ease, transform .2s ease, border-color .2s ease;
+    }
+    .project:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      background: var(--surface-hover);
+    }
+    .project-number {
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 720;
+      letter-spacing: .9px;
+    }
+    .project h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .project p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .about {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 58px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border);
+    }
+    .about-copy { max-width: 560px; }
+    .about-copy p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+    .about-aside { padding-top: 4px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 48px;
+      padding: 20px 0 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 550;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .site-shell { width: min(100% - 36px, 1000px); }
+      .topbar { padding: 24px 0 60px; }
+      .nav { gap: 13px; }
+      .nav a { font-size: 11px; }
+      .theme-toggle { padding: 8px 10px; }
+      h1 { letter-spacing: -3px; }
+      .hero { padding-bottom: 60px; }
+      .projects { grid-template-columns: 1fr; }
+      .project { min-height: auto; }
+      .project-number { margin-bottom: 13px; }
+      .about { flex-direction: column; gap: 14px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="lyrexo home">lyrexo<span>.</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#projects">projects</a>
+        <a href="#about">about</a>
+        <a href="mailto:me@lyrexo.net">contact</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode">☼ Light</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="intro-title">
+        <div class="eyebrow">personal website</div>
+        <h1 id="intro-title">hey, I'm <span class="gradient-text">lyrexo.</span></h1>
+        <p class="intro">
+          I build things, experiment with technology, and spend probably too much time
+          exploring what's possible. This is a little corner of the internet where I
+          keep some of it.
+        </p>
+      </section>
+
+      <section id="projects" aria-labelledby="projects-title">
+        <div class="section-head">
+          <h2 id="projects-title">Things I work on</h2>
+          <span class="small-note">A few interests &amp; projects</span>
+        </div>
+
+        <div class="projects">
+          <article class="project">
+            <div class="project-number">01 / SOFTWARE</div>
+            <h3>Software &amp; projects</h3>
+            <p>Small tools, experiments, and things built for fun.</p>
+          </article>
+          <article class="project">
+            <div class="project-number">02 / INFRASTRUCTURE</div>
+            <h3>Homelab</h3>
+            <p>Self-hosting, networking, servers, and infrastructure.</p>
+          </article>
+          <article class="project">
+            <div class="project-number">03 / EXPLORATION</div>
+            <h3>Other experiments</h3>
+            <p>Random ideas, new technologies, and side projects.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <div class="about-copy">
+          <h2 id="about-title">A little about me</h2>
+          <p>
+            I'm someone who enjoys making things and figuring out how they work.
+            Most of my interests live somewhere between software, technology, and
+            the internet.
+          </p>
+        </div>
+        <div class="about-aside small-note">just a personal site on the internet.</div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> lyrexo</span>
+      <a href="mailto:me@lyrexo.net">me@lyrexo.net</a>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const button = document.getElementById("theme-toggle");
+      const savedTheme = localStorage.getItem("lyrexo-theme");
+      const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      const initialTheme = savedTheme || preferredTheme;
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        const isLight = theme === "light";
+        button.textContent = isLight ? "☾ Dark" : "☼ Light";
+        button.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", isLight ? "#faf9fd" : "#090a10");
+      }
+
+      setTheme(initialTheme);
+      button.addEventListener("click", () => {
+        const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+        setTheme(nextTheme);
+        localStorage.setItem("lyrexo-theme", nextTheme);
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
