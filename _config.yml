@@ -1,0 +1,33 @@
+
+title: "lyrexo"
+description: "Personal website of lyrexo"
+
+url: "https://lyrexo.net"
+baseurl: ""
+
+# Include
+include:
+  - .well-known
+
+# Exclude
+exclude:
+  - .git/
+  - .github/
+  - .gitignore
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - package.json
+  - package-lock.json
+  - .DS_Store
+
+# Preserve
+keep_files:
+  - CNAME
+
+# Build
+markdown: kramdown
+permalink: pretty
+encoding: utf-8
